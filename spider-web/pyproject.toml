@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "spider-web"
+version = "0.1.0"
+description = ""
+authors = ["Milan Savic <eldumo265@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^7.4.3"
+allure-pytest = "^2.13.2"
+sphinx = "^7.2.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
