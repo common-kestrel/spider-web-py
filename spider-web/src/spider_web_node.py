@@ -1,11 +1,23 @@
 class SpiderWebNode:
-    def __init__(self, value, prev_node=None, prev_level_node=None):
+    """
+    The `SpiderWebNode` class represents a node in the SpiderWeb data structure, where each node
+    stores a value and maintains references to its next and previous nodes, as well
+    as references to nodes on the next and previous levels.
+
+    Example Usage:
+    >>> node = SpiderWebNode(42, None, None)
+    """
+
+    def __init__(self, value, prev_node, prev_level_node):
         """
         Constructs a SpiderWebNode with the specified value, previous node, and previous level node.
 
         :param value: The value to be stored in the node.
+        :type value: Any
         :param prev_node: Reference to the previous node.
+        :type prev_node: SpiderWebNode or None
         :param prev_level_node: Reference to the node on the previous level.
+        :type prev_level_node: SpiderWebNode or None
         """
         self.value = value
         self.prev_node = prev_node
@@ -94,12 +106,18 @@ class SpiderWebNode:
         self.prev_level_node = prev_level_node
 
     def reset_pointers(self):
-        """Resets the pointers of the SpiderWebNode, setting all references to None."""
+        """
+        Resets the pointers of the SpiderWebNode, setting all references to None.
+        """
         self.prev_node = None
         self.next_node = None
         self.prev_level_node = None
         self.next_level_node = None
 
     def __str__(self):
-        """Returns a string representation of the SpiderWebNode, including its value."""
+        """
+        Returns a string representation of the SpiderWebNode.
+
+        :return: A string representation of the SpiderWebNode, including its value.
+        """
         return f"SpiderWebNode{{value={self.value}}}"
