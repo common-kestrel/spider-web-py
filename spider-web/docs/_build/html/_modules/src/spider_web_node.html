@@ -69,28 +69,40 @@
            <div itemprop="articleBody">
              
   <h1>Source code for src.spider_web_node</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+
+
 <div class="viewcode-block" id="SpiderWebNode">
 <a class="viewcode-back" href="../../src.html#src.spider_web_node.SpiderWebNode">[docs]</a>
-<span></span><span class="k">class</span> <span class="nc">SpiderWebNode</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">SpiderWebNode</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The `SpiderWebNode` class represents a node in the SpiderWeb data structure, where each node</span>
 <span class="sd">    stores a value and maintains references to its next and previous nodes, as well</span>
 <span class="sd">    as references to nodes on the next and previous levels.</span>
 
 <span class="sd">    Example Usage:</span>
-<span class="sd">    &gt;&gt;&gt; node = SpiderWebNode(42, None, None)</span>
+<span class="sd">        &gt;&gt;&gt; node = SpiderWebNode(42, None, None)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        - `value`: The value stored in the node.</span>
+<span class="sd">        - `prev_node`: Reference to the previous node.</span>
+<span class="sd">        - `prev_level_node`: Reference to the node on the previous level.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">prev_node</span><span class="p">,</span> <span class="n">prev_level_node</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+            <span class="n">prev_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SpiderWebNode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">prev_level_node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SpiderWebNode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructs a SpiderWebNode with the specified value, previous node, and previous level node.</span>
+<span class="sd">            Initialize a SpiderWebNode.</span>
 
-<span class="sd">        :param value: The value to be stored in the node.</span>
-<span class="sd">        :type value: Any</span>
-<span class="sd">        :param prev_node: Reference to the previous node.</span>
-<span class="sd">        :type prev_node: SpiderWebNode or None</span>
-<span class="sd">        :param prev_level_node: Reference to the node on the previous level.</span>
-<span class="sd">        :type prev_level_node: SpiderWebNode or None</span>
+<span class="sd">            :param value: The value to be stored in the node.</span>
+<span class="sd">            :type value: Any</span>
+<span class="sd">            :param prev_node: Reference to the previous node.</span>
+<span class="sd">            :type prev_node: :class:`SpiderWebNode` or None, optional</span>
+<span class="sd">            :param prev_level_node: Reference to the node on the previous level.</span>
+<span class="sd">            :type prev_level_node: :class:`SpiderWebNode` or None, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">prev_node</span>
@@ -222,11 +234,25 @@
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a string representation of the SpiderWebNode.</span>
+<span class="sd">            Return a string representation of the SpiderWebNode.</span>
 
-<span class="sd">        :return: A string representation of the SpiderWebNode, including its value.</span>
+<span class="sd">            Example:</span>
+<span class="sd">                &gt;&gt;&gt; node = SpiderWebNode(42, None, None)</span>
+<span class="sd">                &gt;&gt;&gt; print(node)</span>
+<span class="sd">                &#39;SpiderWebNode(value=53, prev_node=None, prev_level_node=None, next_node=None, next_level_node=None)&#39;</span>
+
+<span class="sd">            :return: A string representation of the SpiderWebNode.</span>
+<span class="sd">            :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SpiderWebNode</span><span class="se">{{</span><span class="s2">value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span></div>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;SpiderWebNode(&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;value=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;prev_node=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;prev_level_node=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_level_node</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;next_node=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">next_node</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;next_level_node=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">next_level_node</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;)&quot;</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 

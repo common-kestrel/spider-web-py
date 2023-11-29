@@ -97,13 +97,23 @@
 <span id="src-spider-web-node-module"></span><h2>src.spider_web_node module<a class="headerlink" href="#module-src.spider_web_node" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.spider_web_node.SpiderWebNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.spider_web_node.</span></span><span class="sig-name descname"><span class="pre">SpiderWebNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prev_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prev_level_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/spider_web_node.html#SpiderWebNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web_node.SpiderWebNode" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.spider_web_node.</span></span><span class="sig-name descname"><span class="pre">SpiderWebNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prev_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.spider_web_node.SpiderWebNode" title="src.spider_web_node.SpiderWebNode"><span class="pre">SpiderWebNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prev_level_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.spider_web_node.SpiderWebNode" title="src.spider_web_node.SpiderWebNode"><span class="pre">SpiderWebNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/spider_web_node.html#SpiderWebNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web_node.SpiderWebNode" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The <cite>SpiderWebNode</cite> class represents a node in the SpiderWeb data structure, where each node
 stores a value and maintains references to its next and previous nodes, as well
 as references to nodes on the next and previous levels.</p>
-<p>Example Usage:
-&gt;&gt;&gt; node = SpiderWebNode(42, None, None)</p>
+<dl>
+<dt>Example Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="o">=</span> <span class="n">SpiderWebNode</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Attributes:</dt><dd><ul class="simple">
+<li><p><cite>value</cite>: The value stored in the node.</p></li>
+<li><p><cite>prev_node</cite>: Reference to the previous node.</p></li>
+<li><p><cite>prev_level_node</cite>: Reference to the node on the previous level.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web_node.SpiderWebNode.get_next_level_node">
 <span class="sig-name descname"><span class="pre">get_next_level_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/spider_web_node.html#SpiderWebNode.get_next_level_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web_node.SpiderWebNode.get_next_level_node" title="Link to this definition"></a></dt>
