@@ -1,3 +1,6 @@
+from typing import Optional, Any
+
+
 class SpiderWebNode:
     """
     The `SpiderWebNode` class represents a node in the SpiderWeb data structure, where each node
@@ -5,19 +8,28 @@ class SpiderWebNode:
     as references to nodes on the next and previous levels.
 
     Example Usage:
-    >>> node = SpiderWebNode(42, None, None)
+        >>> node = SpiderWebNode(42, None, None)
+
+    Attributes:
+        - `value`: The value stored in the node.
+        - `prev_node`: Reference to the previous node.
+        - `prev_level_node`: Reference to the node on the previous level.
     """
 
-    def __init__(self, value, prev_node, prev_level_node):
+    def __init__(
+            self, value: Any,
+            prev_node: Optional['SpiderWebNode'] = None,
+            prev_level_node: Optional['SpiderWebNode'] = None
+    ):
         """
-        Constructs a SpiderWebNode with the specified value, previous node, and previous level node.
+            Initialize a SpiderWebNode.
 
-        :param value: The value to be stored in the node.
-        :type value: Any
-        :param prev_node: Reference to the previous node.
-        :type prev_node: SpiderWebNode or None
-        :param prev_level_node: Reference to the node on the previous level.
-        :type prev_level_node: SpiderWebNode or None
+            :param value: The value to be stored in the node.
+            :type value: Any
+            :param prev_node: Reference to the previous node.
+            :type prev_node: :class:`SpiderWebNode` or None, optional
+            :param prev_level_node: Reference to the node on the previous level.
+            :type prev_level_node: :class:`SpiderWebNode` or None, optional
         """
         self.value = value
         self.prev_node = prev_node
@@ -116,8 +128,22 @@ class SpiderWebNode:
 
     def __str__(self):
         """
-        Returns a string representation of the SpiderWebNode.
+            Return a string representation of the SpiderWebNode.
 
-        :return: A string representation of the SpiderWebNode, including its value.
+            Example:
+                >>> node = SpiderWebNode(42, None, None)
+                >>> print(node)
+                'SpiderWebNode(value=53, prev_node=None, prev_level_node=None, next_node=None, next_level_node=None)'
+
+            :return: A string representation of the SpiderWebNode.
+            :rtype: str
         """
-        return f"SpiderWebNode{{value={self.value}}}"
+        return (
+            f"SpiderWebNode("
+            f"value={self.value}, "
+            f"prev_node={self.prev_node}, "
+            f"prev_level_node={self.prev_level_node}, "
+            f"next_node={self.next_node}, "
+            f"next_level_node={self.next_level_node}"
+            f")"
+        )
