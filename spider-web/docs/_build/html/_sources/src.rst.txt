@@ -12,10 +12,10 @@ src.main module
    :undoc-members:
    :show-inheritance:
 
-src.spider\_web\_node module
-----------------------------
+src.spider\_web module
+----------------------
 
-.. automodule:: src.spider_web_node
+.. automodule:: src.spider_web
    :members:
    :undoc-members:
    :show-inheritance:
