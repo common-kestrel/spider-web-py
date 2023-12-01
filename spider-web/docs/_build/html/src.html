@@ -133,6 +133,23 @@ elements based on their levels and indices within the SpiderWeb.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.get_first">
+<span class="sig-name descname"><span class="pre">get_first</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.get_first"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.get_first" title="Link to this definition"></a></dt>
+<dd><p>Returns the value of the first element in the SpiderWeb.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value of the first element.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – If the SpiderWeb is empty and there is no first element to return.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web.SpiderWeb.get_first_node">
 <span class="sig-name descname"><span class="pre">get_first_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode"><span class="pre">SpiderWebNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.get_first_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.get_first_node" title="Link to this definition"></a></dt>
 <dd><p>Gets the first node in the SpiderWeb.</p>
@@ -156,6 +173,23 @@ elements based on their levels and indices within the SpiderWeb.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.get_last">
+<span class="sig-name descname"><span class="pre">get_last</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.get_last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.get_last" title="Link to this definition"></a></dt>
+<dd><p>Returns the value of the last element in the SpiderWeb.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value of the last element.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – If the SpiderWeb is empty and there is no last element to return.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -238,6 +272,20 @@ and indices within the structure.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.size" title="Link to this definition"></a></dt>
+<dd><p>Returns the size of the SpiderWeb, indicating the total number of elements stored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The size of the SpiderWeb.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -267,6 +315,9 @@ as references to nodes on the next and previous levels.</p>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The node on the next level.</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[<a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode">SpiderWebNode</a>]</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -277,6 +328,9 @@ as references to nodes on the next and previous levels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The next node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[<a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode">SpiderWebNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -289,6 +343,9 @@ as references to nodes on the next and previous levels.</p>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The node on the previous level.</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[<a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode">SpiderWebNode</a>]</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -299,6 +356,9 @@ as references to nodes on the next and previous levels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The previous node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[<a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode">SpiderWebNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -311,13 +371,17 @@ as references to nodes on the next and previous levels.</p>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The value stored in the node.</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web.SpiderWebNode.reset_pointers">
 <span class="sig-name descname"><span class="pre">reset_pointers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWebNode.reset_pointers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWebNode.reset_pointers" title="Link to this definition"></a></dt>
-<dd><p>Resets the pointers of the SpiderWebNode, setting all references to None.</p>
+<dd><p>Resets the pointers of the SpiderWebNode, setting all references to None.
+:rtype: None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -327,6 +391,9 @@ as references to nodes on the next and previous levels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>next_level_node</strong> – The node on the next level.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -339,6 +406,9 @@ as references to nodes on the next and previous levels.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>next_node</strong> – The next node.</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -349,6 +419,9 @@ as references to nodes on the next and previous levels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>prev_level_node</strong> – The node on the previous level.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -361,6 +434,9 @@ as references to nodes on the next and previous levels.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>prev_node</strong> – The previous node.</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -371,6 +447,9 @@ as references to nodes on the next and previous levels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> – The new value to be stored in the node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
