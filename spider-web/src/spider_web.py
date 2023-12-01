@@ -38,11 +38,14 @@ class SpiderWebNode:
         self._next_node = None
         self._next_level_node = None
 
+    # Getter methods for accessing SpiderWebNode properties
+
     def get_value(self) -> Any:
         """
         Gets the value stored in the node.
 
         :return: The value stored in the node.
+        :rtype: Any
         """
         return self._value
 
@@ -51,6 +54,7 @@ class SpiderWebNode:
         Sets the value of the node.
 
         :param value: The new value to be stored in the node.
+        :rtype: None
         """
         self._value = value
 
@@ -59,6 +63,7 @@ class SpiderWebNode:
         Gets the reference to the next node.
 
         :return: The next node.
+        :rtype: Optional[SpiderWebNode]
         """
         return self._next_node
 
@@ -67,6 +72,7 @@ class SpiderWebNode:
         Sets the reference to the next node.
 
         :param next_node: The next node.
+        :rtype: None
         """
         self._next_node = next_node
 
@@ -75,6 +81,7 @@ class SpiderWebNode:
         Gets the reference to the previous node.
 
         :return: The previous node.
+        :rtype: Optional[SpiderWebNode]
         """
         return self._prev_node
 
@@ -83,6 +90,7 @@ class SpiderWebNode:
         Sets the reference to the previous node.
 
         :param prev_node: The previous node.
+        :rtype: None
         """
         self._prev_node = prev_node
 
@@ -91,6 +99,7 @@ class SpiderWebNode:
         Gets the reference to the node on the next level.
 
         :return: The node on the next level.
+        :rtype: Optional[SpiderWebNode]
         """
         return self._next_level_node
 
@@ -99,6 +108,7 @@ class SpiderWebNode:
         Sets the reference to the node on the next level.
 
         :param next_level_node: The node on the next level.
+        :rtype: None
         """
         self._next_level_node = next_level_node
 
@@ -107,6 +117,7 @@ class SpiderWebNode:
         Gets the reference to the node on the previous level.
 
         :return: The node on the previous level.
+        :rtype: Optional[SpiderWebNode]
         """
         return self._prev_level_node
 
@@ -115,12 +126,14 @@ class SpiderWebNode:
         Sets the reference to the node on the previous level.
 
         :param prev_level_node: The node on the previous level.
+        :rtype: None
         """
         self._prev_level_node = prev_level_node
 
     def reset_pointers(self) -> None:
         """
         Resets the pointers of the SpiderWebNode, setting all references to None.
+        :rtype: None
         """
         self._prev_node = None
         self._next_node = None
@@ -235,6 +248,39 @@ class SpiderWeb:
         if self._index == 0:
             return self._max_element_per_level - 1
         return self._index - 1
+
+    def get_first(self) -> Any:
+        """
+        Returns the value of the first element in the SpiderWeb.
+
+        :return: The value of the first element.
+        :rtype: Any
+        :raises IndexError: If the SpiderWeb is empty and there is no first element to return.
+        """
+        if self._first is None:
+            raise IndexError("SpiderWeb is empty, no first element available.")
+        return self._first.get_value()
+
+    def get_last(self) -> Any:
+        """
+        Returns the value of the last element in the SpiderWeb.
+
+        :return: The value of the last element.
+        :rtype: Any
+        :raises IndexError: If the SpiderWeb is empty and there is no last element to return.
+        """
+        if self._last is None:
+            raise IndexError("SpiderWeb is empty, no last element available.")
+        return self._last.get_value()
+
+    def size(self) -> int:
+        """
+        Returns the size of the SpiderWeb, indicating the total number of elements stored.
+
+        :return: The size of the SpiderWeb.
+        :rtype: int
+        """
+        return self._size
 
     # Private helper methods for internal operations and data management within the SpiderWebNode class.
 
@@ -356,17 +402,6 @@ class SpiderWeb:
 
         return self.get_index()
 
-    def add(self, value: Any) -> None:
-        """
-        Adds the specified element to the end of the SpiderWeb.
-
-        :param value: The value to be added to the end of the SpiderWeb.
-        :type value: Any
-        :return: None
-        """
-        new_node = SpiderWebNode(value, self._last, self._prev_level)
-        self._add_last_node(new_node)
-
     def print(self) -> None:
         """
         Prints the elements of the SpiderWeb along with their levels and indices.
@@ -381,3 +416,14 @@ class SpiderWeb:
             print(f"value: {current.get_value()}, level: {self._tmp_level}, index: {self._tmp_index}")
             current = current.get_next_node()
             self._next_index()
+
+    def add(self, value: Any) -> None:
+        """
+        Adds the specified element to the end of the SpiderWeb.
+
+        :param value: The value to be added to the end of the SpiderWeb.
+        :type value: Any
+        :return: None
+        """
+        new_node = SpiderWebNode(value, self._last, self._prev_level)
+        self._add_last_node(new_node)
