@@ -141,6 +141,15 @@ class SpiderWebNode:
         self._prev_level_node = None
         self._next_level_node = None
 
+    def reset_spider_web_node(self) -> None:
+        """
+        Resets the SpiderWebNode, setting its value to None and resetting all pointers to None.
+
+        :rtype: None
+        """
+        self.reset_pointers()
+        self._value = None
+
     def __str__(self):
         """
             Return a string representation of the SpiderWebNode.
@@ -183,6 +192,7 @@ class SpiderWeb:
             - `max_element_per_level`: The maximum number of elements allowed per level (6).
 
         """
+
     def __init__(self, max_element_per_level: int = 6):
         self._value: Any = None
         self._first: Optional[SpiderWebNode] = None
@@ -633,3 +643,17 @@ class SpiderWeb:
         self._decrement_size()
 
         return last_value
+
+    def clear(self) -> None:
+        """
+        Removes all elements from the SpiderWeb.
+        After calling this method, the SpiderWeb will have no elements.
+        """
+        current = self._first
+
+        while current is not None:
+            next_node = current.get_next_node()
+            current.reset_spider_web_node()
+            current = next_node
+
+        self._reset_spider_web()
