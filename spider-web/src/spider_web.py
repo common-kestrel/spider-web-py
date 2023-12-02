@@ -470,7 +470,6 @@ class SpiderWeb:
         :type item: Any
         :param node: The SpiderWebNode object to search for in the SpiderWeb.
         :type node: Optional[SpiderWebNode]
-
         :return: A dictionary containing the level and index of the first occurrence.
                  If the element or object is not found, returns {"level": None, "index": None}.
         :rtype: Dict[str, int]
@@ -517,3 +516,64 @@ class SpiderWeb:
             current = current.get_prev_node()
 
         return result
+
+    def get(self, level: int, index: int) -> Any:
+        """
+        Returns the element at the specified level and index in the SpiderWeb.
+
+        :param level: The level of the desired element (non-negative).
+        :type level: int
+        :param index: The index of the desired element (non-negative).
+        :type index: int
+        :return: The element at the specified level and index in the SpiderWeb.
+        :rtype: Any
+        :raises ValueError: If the provided level or index is invalid.
+        :raises RuntimeError: If the operation fails to get the element, which should not occur under normal conditions.
+        """
+        if not self._is_valid_level_and_index(level, index):
+            raise ValueError(f"Invalid level or index. Level: {level}, Index: {index}")
+
+        self._reset_tmp_variables()
+        current = self._first
+
+        while current is not None:
+            if self._tmp_level == level and self._tmp_index == index:
+                return current.get_value()
+
+            self._next_index()
+            current = current.get_next_node()
+
+        raise RuntimeError(f"Failed to get element. Level: {level}, Index: {index}")
+
+    def set(self, level: int, index: int, element: Any) -> Any:
+        """
+        Sets the element at the specified level and index in the SpiderWeb, replacing any existing element.
+        Returns the previous value at the specified position.
+
+        :param level: The level at which to set the element.
+        :type level: int
+        :param index: The index within the specified level to set the element.
+        :type index: int
+        :param element: The new element to be set at the specified level and index.
+        :type element: Any
+        :return: The previous value at the specified level and index.
+        :rtype: Any
+        :raises ValueError: If the provided level or index is invalid.
+        :raises RuntimeError: If the operation fails to set the element, which should not occur under normal conditions.
+        """
+        if not self._is_valid_level_and_index(level, index):
+            raise ValueError(f"Invalid level or index. Level: {level}, Index: {index}")
+
+        self._reset_tmp_variables()
+        current = self._first
+
+        while current is not None:
+            if self._tmp_level == level and self._tmp_index == index:
+                old_value = current.get_value()
+                current.set_value(element)
+                return old_value
+
+            self._next_index()
+            current = current.get_next_node()
+
+        raise RuntimeError(f"Failed to set element. Level: {level}, Index: {index}")
