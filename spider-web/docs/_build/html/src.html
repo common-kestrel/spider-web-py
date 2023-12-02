@@ -161,6 +161,13 @@ elements based on their levels and indices within the SpiderWeb.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.clear" title="Link to this definition"></a></dt>
+<dd><p>Removes all elements from the SpiderWeb.
+After calling this method, the SpiderWeb will have no elements.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web.SpiderWeb.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.get" title="Link to this definition"></a></dt>
 <dd><p>Returns the element at the specified level and index in the SpiderWeb.</p>
@@ -540,6 +547,17 @@ as references to nodes on the next and previous levels.</p>
 <dt class="sig sig-object py" id="src.spider_web.SpiderWebNode.reset_pointers">
 <span class="sig-name descname"><span class="pre">reset_pointers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWebNode.reset_pointers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWebNode.reset_pointers" title="Link to this definition"></a></dt>
 <dd><p>Resets the pointers of the SpiderWebNode, setting all references to None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWebNode.reset_spider_web_node">
+<span class="sig-name descname"><span class="pre">reset_spider_web_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWebNode.reset_spider_web_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWebNode.reset_spider_web_node" title="Link to this definition"></a></dt>
+<dd><p>Resets the SpiderWebNode, setting its value to None and resetting all pointers to None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
