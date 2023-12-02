@@ -69,7 +69,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for src.spider_web</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 
 <div class="viewcode-block" id="SpiderWebNode">
@@ -608,6 +608,68 @@
 <span class="sd">        :rtype: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpiderWeb.index_of">
+<a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.index_of">[docs]</a>
+    <span class="k">def</span> <span class="nf">index_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SpiderWebNode</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Searches for the specified element or object in the SpiderWeb and returns its level and index.</span>
+
+<span class="sd">        :param item: The element to search for in the SpiderWeb. If None, the search is based on the node.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :param node: The SpiderWebNode object to search for in the SpiderWeb.</span>
+<span class="sd">        :type node: Optional[SpiderWebNode]</span>
+
+<span class="sd">        :return: A dictionary containing the level and index of the first occurrence.</span>
+<span class="sd">                 If the element or object is not found, returns {&quot;level&quot;: None, &quot;index&quot;: None}.</span>
+<span class="sd">        :rtype: Dict[str, int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_tmp_variables</span><span class="p">()</span>
+
+        <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current</span> <span class="o">==</span> <span class="n">node</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="o">==</span> <span class="n">item</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span>
+                <span class="k">return</span> <span class="n">result</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_next_index</span><span class="p">()</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_next_node</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="SpiderWeb.last_index_of">
+<a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.last_index_of">[docs]</a>
+    <span class="k">def</span> <span class="nf">last_index_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SpiderWebNode</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Searches for the last occurrence of the specified element or object in the SpiderWeb</span>
+<span class="sd">        and returns its level and index.</span>
+
+<span class="sd">        :param item: The element to search for in the SpiderWeb. If None, the search is based on the node.</span>
+<span class="sd">        :type item: Any</span>
+<span class="sd">        :param node: The SpiderWebNode object to search for in the SpiderWeb.</span>
+<span class="sd">        :type node: Optional[SpiderWebNode]</span>
+<span class="sd">        :return: A dictionary containing the level and index of the last occurrence.</span>
+<span class="sd">                 If the element or object is not found, returns {&quot;level&quot;: None, &quot;index&quot;: None}.</span>
+<span class="sd">        :rtype: Dict[str, int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_tmp_variables_last</span><span class="p">()</span>
+
+        <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current</span> <span class="o">==</span> <span class="n">node</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">current</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="o">==</span> <span class="n">item</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span>
+                <span class="k">return</span> <span class="n">result</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prev_index</span><span class="p">()</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_prev_node</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
 </div>
 
 </pre></div>

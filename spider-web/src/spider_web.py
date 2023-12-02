@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Optional, Any, Dict
 
 
 class SpiderWebNode:
@@ -461,3 +461,59 @@ class SpiderWeb:
         :rtype: None
         """
         self.add(value)
+
+    def index_of(self, item: Any = None, node: Optional[SpiderWebNode] = None) -> Dict[str, int]:
+        """
+        Searches for the specified element or object in the SpiderWeb and returns its level and index.
+
+        :param item: The element to search for in the SpiderWeb. If None, the search is based on the node.
+        :type item: Any
+        :param node: The SpiderWebNode object to search for in the SpiderWeb.
+        :type node: Optional[SpiderWebNode]
+
+        :return: A dictionary containing the level and index of the first occurrence.
+                 If the element or object is not found, returns {"level": None, "index": None}.
+        :rtype: Dict[str, int]
+        """
+        current = self._first
+        result = {"level": None, "index": None}
+        self._reset_tmp_variables()
+
+        while current is not None:
+            if (node is not None and current == node) or (node is None and current.get_value() == item):
+                result["level"] = self._tmp_level
+                result["index"] = self._tmp_index
+                return result
+
+            self._next_index()
+            current = current.get_next_node()
+
+        return result
+
+    def last_index_of(self, item: Any = None, node: Optional[SpiderWebNode] = None) -> Dict[str, int]:
+        """
+        Searches for the last occurrence of the specified element or object in the SpiderWeb
+        and returns its level and index.
+
+        :param item: The element to search for in the SpiderWeb. If None, the search is based on the node.
+        :type item: Any
+        :param node: The SpiderWebNode object to search for in the SpiderWeb.
+        :type node: Optional[SpiderWebNode]
+        :return: A dictionary containing the level and index of the last occurrence.
+                 If the element or object is not found, returns {"level": None, "index": None}.
+        :rtype: Dict[str, int]
+        """
+        current = self._last
+        result = {"level": None, "index": None}
+        self._reset_tmp_variables_last()
+
+        while current is not None:
+            if (node is not None and current == node) or (node is None and current.get_value() == item):
+                result["level"] = self._tmp_level
+                result["index"] = self._tmp_index
+                return result
+
+            self._prev_index()
+            current = current.get_prev_node()
+
+        return result

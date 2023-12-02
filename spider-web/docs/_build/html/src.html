@@ -288,6 +288,49 @@ elements based on their levels and indices within the SpiderWeb.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.index_of">
+<span class="sig-name descname"><span class="pre">index_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode"><span class="pre">SpiderWebNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.index_of"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.index_of" title="Link to this definition"></a></dt>
+<dd><p>Searches for the specified element or object in the SpiderWeb and returns its level and index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> (<em>Any</em>) – The element to search for in the SpiderWeb. If None, the search is based on the node.</p></li>
+<li><p><strong>node</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode"><em>SpiderWebNode</em></a><em>]</em>) – The SpiderWebNode object to search for in the SpiderWeb.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the level and index of the first occurrence.
+If the element or object is not found, returns {“level”: None, “index”: None}.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.last_index_of">
+<span class="sig-name descname"><span class="pre">last_index_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode"><span class="pre">SpiderWebNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.last_index_of"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.last_index_of" title="Link to this definition"></a></dt>
+<dd><p>Searches for the last occurrence of the specified element or object in the SpiderWeb
+and returns its level and index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> (<em>Any</em>) – The element to search for in the SpiderWeb. If None, the search is based on the node.</p></li>
+<li><p><strong>node</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode"><em>SpiderWebNode</em></a><em>]</em>) – The SpiderWebNode object to search for in the SpiderWeb.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the level and index of the last occurrence.
+If the element or object is not found, returns {“level”: None, “index”: None}.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web.SpiderWeb.print">
 <span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.print" title="Link to this definition"></a></dt>
 <dd><p>Prints the elements of the SpiderWeb along with their levels and indices.
