@@ -620,7 +620,6 @@
 <span class="sd">        :type item: Any</span>
 <span class="sd">        :param node: The SpiderWebNode object to search for in the SpiderWeb.</span>
 <span class="sd">        :type node: Optional[SpiderWebNode]</span>
-
 <span class="sd">        :return: A dictionary containing the level and index of the first occurrence.</span>
 <span class="sd">                 If the element or object is not found, returns {&quot;level&quot;: None, &quot;index&quot;: None}.</span>
 <span class="sd">        :rtype: Dict[str, int]</span>
@@ -670,6 +669,73 @@
             <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_prev_node</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="SpiderWeb.get">
+<a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the element at the specified level and index in the SpiderWeb.</span>
+
+<span class="sd">        :param level: The level of the desired element (non-negative).</span>
+<span class="sd">        :type level: int</span>
+<span class="sd">        :param index: The index of the desired element (non-negative).</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :return: The element at the specified level and index in the SpiderWeb.</span>
+<span class="sd">        :rtype: Any</span>
+<span class="sd">        :raises ValueError: If the provided level or index is invalid.</span>
+<span class="sd">        :raises RuntimeError: If the operation fails to get the element, which should not occur under normal conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_level_and_index</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid level or index. Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">, Index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_tmp_variables</span><span class="p">()</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first</span>
+
+        <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span> <span class="o">==</span> <span class="n">level</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span> <span class="o">==</span> <span class="n">index</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">current</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_next_index</span><span class="p">()</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_next_node</span><span class="p">()</span>
+
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get element. Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">, Index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpiderWeb.set">
+<a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.set">[docs]</a>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the element at the specified level and index in the SpiderWeb, replacing any existing element.</span>
+<span class="sd">        Returns the previous value at the specified position.</span>
+
+<span class="sd">        :param level: The level at which to set the element.</span>
+<span class="sd">        :type level: int</span>
+<span class="sd">        :param index: The index within the specified level to set the element.</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :param element: The new element to be set at the specified level and index.</span>
+<span class="sd">        :type element: Any</span>
+<span class="sd">        :return: The previous value at the specified level and index.</span>
+<span class="sd">        :rtype: Any</span>
+<span class="sd">        :raises ValueError: If the provided level or index is invalid.</span>
+<span class="sd">        :raises RuntimeError: If the operation fails to set the element, which should not occur under normal conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_level_and_index</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid level or index. Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">, Index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_tmp_variables</span><span class="p">()</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first</span>
+
+        <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span> <span class="o">==</span> <span class="n">level</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span> <span class="o">==</span> <span class="n">index</span><span class="p">:</span>
+                <span class="n">old_value</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+                <span class="n">current</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">old_value</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_next_index</span><span class="p">()</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_next_node</span><span class="p">()</span>
+
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to set element. Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">, Index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
