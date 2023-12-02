@@ -577,3 +577,59 @@ class SpiderWeb:
             current = current.get_next_node()
 
         raise RuntimeError(f"Failed to set element. Level: {level}, Index: {index}")
+
+    def remove_first(self) -> Any:
+        """
+        Removes and returns the first element from the SpiderWeb.
+
+        :return: The first element in the SpiderWeb.
+        :rtype: Any
+        :raises IndexError: If the SpiderWeb is empty.
+        """
+        if self._first is None:
+            raise IndexError("Cannot remove from an empty SpiderWeb.")
+
+        next_node = self._first.get_next_node()
+        next_level = self._first.get_next_level_node()
+        first_value = self._first.get_value()
+
+        if next_node is not None:
+            next_node.set_prev_node(None)
+            self._first.set_next_node(None)
+            if next_level is not None:
+                next_level.set_prev_level_node(None)
+                self._first.set_next_level_node(None)
+            self._first = next_node
+        else:
+            self._reset_pointers()
+
+        self._decrement_index()
+        self._decrement_size()
+
+        return first_value
+
+    def remove_last(self) -> Any:
+        """
+        Removes and returns the last element from the SpiderWeb.
+
+        :return: The last element in the SpiderWeb.
+        :rtype: Any
+        :raises IndexError: If the SpiderWeb is empty.
+        """
+        if self._first is None:
+            raise IndexError("Cannot remove from an empty SpiderWeb.")
+
+        prev_node = self._last.get_prev_node()
+        last_value = self._last.get_value()
+
+        if prev_node is None:
+            self._reset_pointers()
+        else:
+            self._last.set_value(None)
+            prev_node.set_next_node(None)
+            self._last = prev_node
+
+        self._decrement_index()
+        self._decrement_size()
+
+        return last_value
