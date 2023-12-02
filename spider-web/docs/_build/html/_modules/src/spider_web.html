@@ -828,7 +828,23 @@
             <span class="n">current</span> <span class="o">=</span> <span class="n">next_node</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_spider_web</span><span class="p">()</span></div>
-</div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a string representation of the SpiderWeb.</span>
+
+<span class="sd">        :return: A string representation of the SpiderWeb.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;SpiderWebNode(&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;level=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_level</span><span class="p">()</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;index=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">()</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;max_element_per_level=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_element_per_level</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;)&quot;</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 

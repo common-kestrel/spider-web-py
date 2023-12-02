@@ -657,3 +657,19 @@ class SpiderWeb:
             current = next_node
 
         self._reset_spider_web()
+
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the SpiderWeb.
+
+        :return: A string representation of the SpiderWeb.
+        :rtype: str
+        """
+        return (
+            f"SpiderWebNode("
+            f"level={self.get_level()}, "
+            f"index={self.get_index()}, "
+            f"size={self.size()}, "
+            f"max_element_per_level={self._max_element_per_level}"
+            f")"
+        )
