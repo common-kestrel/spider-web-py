@@ -121,12 +121,40 @@ elements based on their levels and indices within the SpiderWeb.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web.SpiderWeb.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.add" title="Link to this definition"></a></dt>
-<dd><p>Adds the specified element to the end of the SpiderWeb.</p>
+<dd><p>Adds the specified element or SpiderWebNode to the end of the SpiderWeb.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to be added to the end of the SpiderWeb.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.add_first">
+<span class="sig-name descname"><span class="pre">add_first</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.add_first"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.add_first" title="Link to this definition"></a></dt>
+<dd><p>Adds the specified element or SpiderWebNode to the beginning of the SpiderWeb.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to be added to the beginning of the SpiderWeb.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.add_last">
+<span class="sig-name descname"><span class="pre">add_last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.add_last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.add_last" title="Link to this definition"></a></dt>
+<dd><p>Adds the specified element or SpiderWebNode to the end of the SpiderWeb.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to be added to the end of the SpiderWeb.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -266,7 +294,7 @@ elements based on their levels and indices within the SpiderWeb.</p>
 This method prints the elements stored in the SpiderWeb, displaying their levels
 and indices within the structure.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
 </dd>
 </dl>
@@ -380,8 +408,12 @@ as references to nodes on the next and previous levels.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web.SpiderWebNode.reset_pointers">
 <span class="sig-name descname"><span class="pre">reset_pointers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWebNode.reset_pointers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWebNode.reset_pointers" title="Link to this definition"></a></dt>
-<dd><p>Resets the pointers of the SpiderWebNode, setting all references to None.
-:rtype: None</p>
+<dd><p>Resets the pointers of the SpiderWebNode, setting all references to None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

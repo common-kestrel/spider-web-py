@@ -133,6 +133,7 @@ class SpiderWebNode:
     def reset_pointers(self) -> None:
         """
         Resets the pointers of the SpiderWebNode, setting all references to None.
+
         :rtype: None
         """
         self._prev_node = None
@@ -408,7 +409,7 @@ class SpiderWeb:
         This method prints the elements stored in the SpiderWeb, displaying their levels
         and indices within the structure.
 
-        :return: None
+        :rtype: None
         """
         current: Optional[SpiderWebNode] = self._first
         self._reset_tmp_variables()
@@ -419,11 +420,44 @@ class SpiderWeb:
 
     def add(self, value: Any) -> None:
         """
-        Adds the specified element to the end of the SpiderWeb.
+        Adds the specified element or SpiderWebNode to the end of the SpiderWeb.
 
         :param value: The value to be added to the end of the SpiderWeb.
         :type value: Any
-        :return: None
+        :rtype: None
         """
-        new_node = SpiderWebNode(value, self._last, self._prev_level)
+        if isinstance(value, SpiderWebNode):
+            new_node = value
+            new_node.reset_pointers()
+            new_node.set_prev_node(self._last)
+            new_node.set_prev_level_node(self._prev_level)
+        else:
+            new_node = SpiderWebNode(value, self._last, self._prev_level)
+
         self._add_last_node(new_node)
+
+    def add_first(self, value: Any) -> None:
+        """
+        Adds the specified element or SpiderWebNode to the beginning of the SpiderWeb.
+
+        :param value: The value to be added to the beginning of the SpiderWeb.
+        :type value: Any
+        :rtype: None
+        """
+        if isinstance(value, SpiderWebNode):
+            new_node = value
+            new_node.reset_pointers()
+        else:
+            new_node = SpiderWebNode(value)
+
+        self._add_first_node(new_node)
+
+    def add_last(self, value: Any) -> None:
+        """
+        Adds the specified element or SpiderWebNode to the end of the SpiderWeb.
+
+        :param value: The value to be added to the end of the SpiderWeb.
+        :type value: Any
+        :rtype: None
+        """
+        self.add(value)

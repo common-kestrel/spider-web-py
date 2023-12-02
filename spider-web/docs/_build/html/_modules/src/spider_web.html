@@ -238,6 +238,7 @@
     <span class="k">def</span> <span class="nf">reset_pointers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resets the pointers of the SpiderWebNode, setting all references to None.</span>
+
 <span class="sd">        :rtype: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev_node</span> <span class="o">=</span> <span class="kc">None</span>
@@ -546,7 +547,7 @@
 <span class="sd">        This method prints the elements stored in the SpiderWeb, displaying their levels</span>
 <span class="sd">        and indices within the structure.</span>
 
-<span class="sd">        :return: None</span>
+<span class="sd">        :rtype: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">current</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SpiderWebNode</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_tmp_variables</span><span class="p">()</span>
@@ -560,14 +561,53 @@
 <a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.add">[docs]</a>
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds the specified element to the end of the SpiderWeb.</span>
+<span class="sd">        Adds the specified element or SpiderWebNode to the end of the SpiderWeb.</span>
 
 <span class="sd">        :param value: The value to be added to the end of the SpiderWeb.</span>
 <span class="sd">        :type value: Any</span>
-<span class="sd">        :return: None</span>
+<span class="sd">        :rtype: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">new_node</span> <span class="o">=</span> <span class="n">SpiderWebNode</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_level</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">SpiderWebNode</span><span class="p">):</span>
+            <span class="n">new_node</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">new_node</span><span class="o">.</span><span class="n">reset_pointers</span><span class="p">()</span>
+            <span class="n">new_node</span><span class="o">.</span><span class="n">set_prev_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_last</span><span class="p">)</span>
+            <span class="n">new_node</span><span class="o">.</span><span class="n">set_prev_level_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prev_level</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_node</span> <span class="o">=</span> <span class="n">SpiderWebNode</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_level</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_last_node</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpiderWeb.add_first">
+<a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.add_first">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_first</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the specified element or SpiderWebNode to the beginning of the SpiderWeb.</span>
+
+<span class="sd">        :param value: The value to be added to the beginning of the SpiderWeb.</span>
+<span class="sd">        :type value: Any</span>
+<span class="sd">        :rtype: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">SpiderWebNode</span><span class="p">):</span>
+            <span class="n">new_node</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">new_node</span><span class="o">.</span><span class="n">reset_pointers</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_node</span> <span class="o">=</span> <span class="n">SpiderWebNode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_first_node</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpiderWeb.add_last">
+<a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.add_last">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_last</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the specified element or SpiderWebNode to the end of the SpiderWeb.</span>
+
+<span class="sd">        :param value: The value to be added to the end of the SpiderWeb.</span>
+<span class="sd">        :type value: Any</span>
+<span class="sd">        :rtype: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
