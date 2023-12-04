@@ -1,3 +1,4 @@
+import copy
 from typing import Optional, Any, Dict
 
 
@@ -194,10 +195,9 @@ class SpiderWeb:
         """
 
     def __init__(self, max_element_per_level: int = 6):
-        self._value: Any = None
         self._first: Optional[SpiderWebNode] = None
-        self._prev_level: Optional[SpiderWebNode] = None
         self._last: Optional[SpiderWebNode] = None
+        self._prev_level: Optional[SpiderWebNode] = None
         self._level: int = 0
         self._index: int = 0
         self._tmp_level: int = 0
@@ -648,6 +648,8 @@ class SpiderWeb:
         """
         Removes all elements from the SpiderWeb.
         After calling this method, the SpiderWeb will have no elements.
+
+        :rtype: None
         """
         current = self._first
 
@@ -657,6 +659,22 @@ class SpiderWeb:
             current = next_node
 
         self._reset_spider_web()
+
+    def copy(self) -> 'SpiderWeb':
+        """
+        Returns a shallow copy of this SpiderWeb instance.
+        A shallow copy creates a new instance of SpiderWeb and populates it with the values from the current instance.
+
+        :return: A shallow copy of this SpiderWeb instance.
+        :rtype: SpiderWeb
+        """
+        new_instance = SpiderWeb(self._max_element_per_level)
+        current = self.get_first_node()
+        while current is not None:
+            new_instance.add(current.get_value())
+            current = current.get_next_node()
+
+        return new_instance
 
     def __str__(self) -> str:
         """
