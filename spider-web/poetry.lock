@@ -42,6 +42,16 @@ attrs = ">=16.0.0"
 pluggy = ">=0.4.0"
 
 [[package]]
+name = "assertpy"
+version = "1.1"
+description = "Simple assertion library for unit testing in python with a fluent API"
+optional = false
+python-versions = "*"
+files = [
+    {file = "assertpy-1.1.tar.gz", hash = "sha256:acc64329934ad71a3221de185517a43af33e373bb44dc05b5a9b174394ef4833"},
+]
+
+[[package]]
 name = "attrs"
 version = "23.1.0"
 description = "Classes Without Boilerplate"
@@ -653,4 +663,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f4bc12333a6185d1ae8d1fdf6ab37a167ed96e6e0c11400f616f5bbd47d703be"
+content-hash = "88421f1e0b56f81b6d46bdaa643d4e9ac535bfe40babb5d9557a8531a77a1bf6"
