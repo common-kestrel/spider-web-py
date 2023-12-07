@@ -194,3 +194,52 @@ def test_print_non_empty_spiderweb(capsys, spiderweb_custom_max_element: SpiderW
                        "value: 5, level: 1, index: 2\n"
                        "value: 6, level: 2, index: 0\n")
     assert_that(captured.out).is_equal_to(expected_output)
+
+
+@pytest.mark.spider_web
+def test_add_element_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding an element to an empty SpiderWeb.
+    """
+    spiderweb_default_max_element.add("value")
+    assert_that(spiderweb_default_max_element.size()).is_equal_to(1)
+    assert_that(spiderweb_default_max_element.get_first_node()).is_not_none()
+    assert_that(spiderweb_default_max_element.get_last_node()).is_not_none()
+    assert_that(spiderweb_default_max_element.get_prev_level()).is_none()
+    assert_that(spiderweb_default_max_element.get_first()).is_equal_to("value")
+    assert_that(spiderweb_default_max_element.get_index()).is_equal_to(0)
+    assert_that(spiderweb_default_max_element.get_level()).is_equal_to(0)
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+
+
+@pytest.mark.spider_web
+def test_add_element_to_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding an element to a non-empty SpiderWeb.
+    """
+    spiderweb_default_max_element.add("value1")
+    spiderweb_default_max_element.add("value2")
+    assert_that(spiderweb_default_max_element.size()).is_equal_to(2)
+
+
+@pytest.mark.spider_web
+def test_add_node_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding a SpiderWebNode to an empty SpiderWeb.
+    """
+    node = SpiderWebNode("value")
+    spiderweb_default_max_element.add(node)
+    assert_that(spiderweb_default_max_element.size()).is_equal_to(1)
+
+
+@pytest.mark.spider_web
+def test_add_node_to_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding a SpiderWebNode to a non-empty SpiderWeb with default max_element_per_level.
+    """
+    node1 = SpiderWebNode("value1")
+    node2 = SpiderWebNode("value2")
+    spiderweb_default_max_element.add(node1)
+    spiderweb_default_max_element.add(node2)
+    assert_that(spiderweb_default_max_element.size()).is_equal_to(2)
