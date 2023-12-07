@@ -115,7 +115,7 @@ def test_get_level(spiderweb_custom_max_element: SpiderWeb, element_count: int, 
     ([0, 1, 2, 3, 4, 5], 6)
 ])
 @pytest.mark.spider_web
-def test_size_(spiderweb_custom_max_element: SpiderWeb, elements: list, expected_size: int) -> None:
+def test_size(spiderweb_custom_max_element: SpiderWeb, elements: list, expected_size: int) -> None:
     """
     Parametrized test for the size method in SpiderWeb.
 
@@ -163,3 +163,34 @@ def test_get_maximum_index_for_level(
     else:
         result = spiderweb_custom_max_element.get_maximum_index_for_level(level)
         assert_that(result).is_equal_to(expected_index)
+
+
+@pytest.mark.spider_web
+def test_print_empty_spiderweb(capsys, spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test the print method for an empty SpiderWeb.
+    """
+    spiderweb_default_max_element.print()
+    captured = capsys.readouterr()
+    assert_that(captured.out).is_empty()
+
+
+@pytest.mark.spider_web
+def test_print_non_empty_spiderweb(capsys, spiderweb_custom_max_element: SpiderWeb) -> None:
+    """
+    Test the print method for a non-empty SpiderWeb.
+    """
+    for i in range(7):
+        spiderweb_custom_max_element.add(i)
+
+    spiderweb_custom_max_element.print()
+    captured = capsys.readouterr()
+
+    expected_output = ("value: 0, level: 0, index: 0\n"
+                       "value: 1, level: 0, index: 1\n"
+                       "value: 2, level: 0, index: 2\n"
+                       "value: 3, level: 1, index: 0\n"
+                       "value: 4, level: 1, index: 1\n"
+                       "value: 5, level: 1, index: 2\n"
+                       "value: 6, level: 2, index: 0\n")
+    assert_that(captured.out).is_equal_to(expected_output)
