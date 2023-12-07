@@ -127,3 +127,39 @@ def test_size_(spiderweb_custom_max_element: SpiderWeb, elements: list, expected
 
     result = spiderweb_custom_max_element.size()
     assert_that(result).is_equal_to(expected_size)
+
+
+@pytest.mark.parametrize("element_count, level, expected_index", [
+    (0, 0, ValueError),
+    (0, 1, ValueError),
+    (1, -1, ValueError),
+    (3, 1, ValueError),
+    (4, 0, 2),
+    (4, 1, 0),
+    (4, 2, ValueError),
+    (8, 1, 2),
+    (8, 2, 1)
+])
+@pytest.mark.spider_web
+def test_get_maximum_index_for_level(
+        spiderweb_custom_max_element: SpiderWeb,
+        element_count: int,
+        level: int,
+        expected_index: int
+) -> None:
+    """
+    Parametrized test for the get_maximum_index_for_level method in SpiderWeb.
+
+    :param element_count: The number of elements to add to the SpiderWeb.
+    :param level: The level for which to retrieve the maximum index.
+    :param expected_index: The expected maximum index for the specified level.
+    """
+    for i in range(element_count):
+        spiderweb_custom_max_element.add(i)
+
+    if expected_index == ValueError:
+        with pytest.raises(ValueError):
+            spiderweb_custom_max_element.get_maximum_index_for_level(level)
+    else:
+        result = spiderweb_custom_max_element.get_maximum_index_for_level(level)
+        assert_that(result).is_equal_to(expected_index)
