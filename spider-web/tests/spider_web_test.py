@@ -59,3 +59,25 @@ def test_get_prev_level_non_empty_spiderweb(spiderweb_default_max_element: Spide
     result = spiderweb_default_max_element.get_prev_level()
     assert_that(result).is_instance_of(SpiderWebNode)
     assert_that(result.get_value()).is_equal_to("prev_level_node_value")
+
+
+@pytest.mark.spider_web
+def test_get_last_node_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test if the get_last_node method returns None for an empty SpiderWeb.
+    """
+    result = spiderweb_default_max_element.get_last_node()
+    assert_that(result).is_none()
+
+
+@pytest.mark.spider_web
+def test_get_last_node_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test if the get_last_node method returns the correct last node for a non-empty SpiderWeb.
+    """
+    # Assuming SpiderWebNode has an __init__ method that takes a value parameter
+    spiderweb_default_max_element._last = SpiderWebNode(value="last_node_value")
+
+    result = spiderweb_default_max_element.get_last_node()
+    assert_that(result).is_instance_of(SpiderWebNode)
+    assert_that(result.get_value()).is_equal_to("last_node_value")
