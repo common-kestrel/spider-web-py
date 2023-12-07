@@ -3,6 +3,22 @@ from assertpy import assert_that
 from spider_web import SpiderWeb, SpiderWebNode
 
 
+def assert_common_properties_add(spiderweb, values, index=0, level=0):
+    assert_that(spiderweb.size()).is_equal_to(len(values))
+    assert_that(spiderweb.get_first_node()).is_not_none()
+    assert_that(spiderweb.get_last_node()).is_not_none()
+    assert_that(spiderweb.get_prev_level()).is_none()
+    assert_that(spiderweb.get_first()).is_equal_to(values[0])
+    assert_that(spiderweb.get_last()).is_equal_to(values[-1])
+    assert_that(spiderweb.get_index()).is_equal_to(index)
+    assert_that(spiderweb.get_level()).is_equal_to(level)
+
+
+def assert_common_properties_add_node(spiderweb, nodes, index=0, level=0):
+    values = [node.get_value() for node in nodes]
+    assert_common_properties_add(spiderweb, values, index, level)
+
+
 @pytest.fixture(scope="function")
 def spiderweb_default_max_element() -> SpiderWeb:
     """
@@ -202,13 +218,8 @@ def test_add_element_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb
     Test adding an element to an empty SpiderWeb.
     """
     spiderweb_default_max_element.add("value")
-    assert_that(spiderweb_default_max_element.size()).is_equal_to(1)
-    assert_that(spiderweb_default_max_element.get_first_node()).is_not_none()
-    assert_that(spiderweb_default_max_element.get_last_node()).is_not_none()
-    assert_that(spiderweb_default_max_element.get_prev_level()).is_none()
-    assert_that(spiderweb_default_max_element.get_first()).is_equal_to("value")
-    assert_that(spiderweb_default_max_element.get_index()).is_equal_to(0)
-    assert_that(spiderweb_default_max_element.get_level()).is_equal_to(0)
+
+    assert_common_properties_add(spiderweb_default_max_element, ["value"])
     (assert_that(spiderweb_default_max_element.get_first_node()).
      is_equal_to(spiderweb_default_max_element.get_last_node()))
 
@@ -218,9 +229,17 @@ def test_add_element_to_non_empty_spiderweb(spiderweb_default_max_element: Spide
     """
     Test adding an element to a non-empty SpiderWeb.
     """
-    spiderweb_default_max_element.add("value1")
-    spiderweb_default_max_element.add("value2")
-    assert_that(spiderweb_default_max_element.size()).is_equal_to(2)
+    values = ["value1", "value2"]
+    for value in values:
+        spiderweb_default_max_element.add(value)
+
+    assert_common_properties_add(spiderweb_default_max_element, values, index=1, level=0)
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_not_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_first_node().get_next_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_last_node().get_prev_node()).
+     is_equal_to(spiderweb_default_max_element.get_first_node()))
 
 
 @pytest.mark.spider_web
@@ -228,18 +247,153 @@ def test_add_node_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -
     """
     Test adding a SpiderWebNode to an empty SpiderWeb.
     """
+
     node = SpiderWebNode("value")
     spiderweb_default_max_element.add(node)
-    assert_that(spiderweb_default_max_element.size()).is_equal_to(1)
+
+    assert_common_properties_add_node(spiderweb_default_max_element, [node])
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
 
 
 @pytest.mark.spider_web
 def test_add_node_to_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
     """
-    Test adding a SpiderWebNode to a non-empty SpiderWeb with default max_element_per_level.
+    Test adding a SpiderWebNode to a non-empty SpiderWeb.
     """
-    node1 = SpiderWebNode("value1")
-    node2 = SpiderWebNode("value2")
-    spiderweb_default_max_element.add(node1)
-    spiderweb_default_max_element.add(node2)
-    assert_that(spiderweb_default_max_element.size()).is_equal_to(2)
+    nodes = [SpiderWebNode("value1"), SpiderWebNode("value2")]
+    for node in nodes:
+        spiderweb_default_max_element.add(node)
+
+    assert_common_properties_add_node(spiderweb_default_max_element, nodes, index=1, level=0)
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_not_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_first_node().get_next_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_last_node().get_prev_node()).
+     is_equal_to(spiderweb_default_max_element.get_first_node()))
+
+
+@pytest.mark.spider_web
+def test_add_first_element_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding an element to the beginning of an empty SpiderWeb.
+    """
+    spiderweb_default_max_element.add_first("value")
+
+    assert_common_properties_add(spiderweb_default_max_element, ["value"])
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+
+
+@pytest.mark.spider_web
+def test_add_first_element_to_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding an element to the beginning of a non-empty SpiderWeb.
+    """
+    values = ["value1", "value2"]
+    for value in values:
+        spiderweb_default_max_element.add_first(value)
+    values.reverse()
+
+    assert_common_properties_add(spiderweb_default_max_element, values, index=1, level=0)
+
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_not_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_first_node().get_next_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_last_node().get_prev_node()).
+     is_equal_to(spiderweb_default_max_element.get_first_node()))
+
+
+@pytest.mark.spider_web
+def test_add_first_node_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding a SpiderWebNode to the beginning of an empty SpiderWeb.
+    """
+    node = SpiderWebNode("value")
+    spiderweb_default_max_element.add_first(node)
+
+    assert_common_properties_add_node(spiderweb_default_max_element, [node])
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+
+
+@pytest.mark.spider_web
+def test_add_first_node_to_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding a SpiderWebNode to the beginning of a non-empty SpiderWeb.
+    """
+    nodes = [SpiderWebNode("value1"), SpiderWebNode("value2")]
+    for node in nodes:
+        spiderweb_default_max_element.add_first(node)
+    nodes.reverse()
+
+    assert_common_properties_add_node(spiderweb_default_max_element, nodes, index=1, level=0)
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_not_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_first_node().get_next_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_last_node().get_prev_node()).
+     is_equal_to(spiderweb_default_max_element.get_first_node()))
+
+
+@pytest.mark.spider_web
+def test_add_last_element_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding an element to the end of an empty SpiderWeb.
+    """
+    spiderweb_default_max_element.add_last("value")
+
+    assert_common_properties_add(spiderweb_default_max_element, ["value"])
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+
+
+@pytest.mark.spider_web
+def test_add_last_element_to_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding an element to the end of a non-empty SpiderWeb.
+    """
+    values = ["value1", "value2"]
+    for value in values:
+        spiderweb_default_max_element.add(value)
+
+    assert_common_properties_add(spiderweb_default_max_element, values, index=1, level=0)
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_not_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_first_node().get_next_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_last_node().get_prev_node()).
+     is_equal_to(spiderweb_default_max_element.get_first_node()))
+
+
+@pytest.mark.spider_web
+def test_add_last_node_to_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding a SpiderWebNode to the end of an empty SpiderWeb.
+    """
+    node = SpiderWebNode("value")
+    spiderweb_default_max_element.add(node)
+
+    assert_common_properties_add_node(spiderweb_default_max_element, [node])
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+
+
+@pytest.mark.spider_web
+def test_add_last_node_to_non_empty_spiderweb(spiderweb_default_max_element: SpiderWeb) -> None:
+    """
+    Test adding a SpiderWebNode to the end of a non-empty SpiderWeb.
+    """
+    nodes = [SpiderWebNode("value1"), SpiderWebNode("value2")]
+    for node in nodes:
+        spiderweb_default_max_element.add(node)
+
+    assert_common_properties_add_node(spiderweb_default_max_element, nodes, index=1, level=0)
+    (assert_that(spiderweb_default_max_element.get_first_node()).
+     is_not_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_first_node().get_next_node()).
+     is_equal_to(spiderweb_default_max_element.get_last_node()))
+    (assert_that(spiderweb_default_max_element.get_last_node().get_prev_node()).
+     is_equal_to(spiderweb_default_max_element.get_first_node()))
