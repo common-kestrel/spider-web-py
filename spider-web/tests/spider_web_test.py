@@ -83,9 +83,7 @@ def test_get_last_node_non_empty_spiderweb(spiderweb_default_max_element: Spider
     assert_that(result.get_value()).is_equal_to("last_node_value")
 
 
-@pytest.mark.parametrize(
-    "element_count, expected_level",
-    [
+@pytest.mark.parametrize("element_count, expected_level", [
         (0, -1),
         (1, 0),
         (3, 0),
@@ -96,7 +94,7 @@ def test_get_last_node_non_empty_spiderweb(spiderweb_default_max_element: Spider
     ]
 )
 @pytest.mark.spider_web
-def test_get_level(spiderweb_custom_max_element: SpiderWeb, element_count, expected_level) -> None:
+def test_get_level(spiderweb_custom_max_element: SpiderWeb, element_count: int, expected_level: int) -> None:
     """
     Parametrized test for the get_level method in SpiderWeb.
 
@@ -108,3 +106,24 @@ def test_get_level(spiderweb_custom_max_element: SpiderWeb, element_count, expec
 
     result = spiderweb_custom_max_element.get_level()
     assert_that(result).is_equal_to(expected_level)
+
+
+@pytest.mark.parametrize("elements, expected_size", [
+    ([], 0),
+    ([1, 2, 3], 3),
+    (["a", 2, "c", 4, 5], 5),
+    ([0, 1, 2, 3, 4, 5], 6)
+])
+@pytest.mark.spider_web
+def test_size_(spiderweb_custom_max_element: SpiderWeb, elements: list, expected_size: int) -> None:
+    """
+    Parametrized test for the size method in SpiderWeb.
+
+    :param elements: List of elements to add to the SpiderWeb.
+    :param expected_size: The expected size for the SpiderWeb.
+    """
+    for element in elements:
+        spiderweb_custom_max_element.add(element)
+
+    result = spiderweb_custom_max_element.size()
+    assert_that(result).is_equal_to(expected_size)
