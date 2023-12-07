@@ -112,3 +112,55 @@ def test_set_next_node_can_set_next_node_to_none(spider_web_node: SpiderWebNode)
     spider_web_node.set_next_node(next_node=None)
     result = spider_web_node.get_next_node()
     assert_that(result).is_none()
+
+
+@pytest.mark.spider_web_node
+def test_get_prev_node_returns_none_when_not_set(spider_web_node: SpiderWebNode) -> None:
+    """
+    Test if the get_prev_node method returns None when the next node is not set.
+    """
+    result = spider_web_node.get_prev_node()
+    assert_that(result).is_none()
+
+
+@pytest.mark.spider_web_node
+def test_get_prev_node_returns_correct_next_node(spider_web_node: SpiderWebNode) -> None:
+    """
+    Test if the get_prev_node method returns the correct prev node when it is set.
+    """
+    prev_node = SpiderWebNode(value='prev_node_value')
+    spider_web_node.set_prev_node(prev_node)
+    result = spider_web_node.get_prev_node()
+    assert_that(result).is_equal_to(prev_node)
+
+
+@pytest.mark.spider_web_node
+def test_set_prev_node_updates_node(spider_web_node: SpiderWebNode) -> None:
+    """
+    Test if the set_prev_node method correctly updates the prev node.
+    """
+    prev_node = SpiderWebNode(value=42)
+    spider_web_node.set_prev_node(prev_node)
+    result = spider_web_node.get_prev_node()
+    assert_that(result).is_equal_to(prev_node)
+
+    prev_node = SpiderWebNode(value="updated_node")
+    spider_web_node.set_prev_node(prev_node)
+    result = spider_web_node.get_prev_node()
+    assert_that(result).is_equal_to(prev_node)
+    assert_that(result.get_prev_node()).is_none()
+
+
+@pytest.mark.spider_web_node
+def test_set_prev_node_can_set_prev_node_to_none(spider_web_node: SpiderWebNode) -> None:
+    """
+    Test if the set_prev_node method can set the prev node to None.
+    """
+    prev_node = SpiderWebNode(value=42)
+    spider_web_node.set_prev_node(prev_node)
+    result = spider_web_node.get_prev_node()
+    assert_that(result).is_equal_to(prev_node)
+
+    spider_web_node.set_prev_node(prev_node=None)
+    result = spider_web_node.get_prev_node()
+    assert_that(result).is_none()
