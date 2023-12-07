@@ -1,9 +1,10 @@
 import pytest
 from assertpy import assert_that
+from typing import Tuple, List
 from spider_web import SpiderWeb, SpiderWebNode
 
 
-def assert_common_properties_add(spiderweb, values, index=0, level=0):
+def assert_common_properties_add(spiderweb, values, index=0, level=0) -> None:
     assert_that(spiderweb.size()).is_equal_to(len(values))
     assert_that(spiderweb.get_first_node()).is_not_none()
     assert_that(spiderweb.get_last_node()).is_not_none()
@@ -14,7 +15,7 @@ def assert_common_properties_add(spiderweb, values, index=0, level=0):
     assert_that(spiderweb.get_level()).is_equal_to(level)
 
 
-def assert_common_properties_add_node(spiderweb, nodes, index=0, level=0):
+def assert_common_properties_add_node(spiderweb: SpiderWeb, nodes: list, index: int = 0, level: int = 0) -> None:
     values = [node.get_value() for node in nodes]
     assert_common_properties_add(spiderweb, values, index, level)
 
@@ -33,6 +34,30 @@ def spiderweb_custom_max_element() -> SpiderWeb:
     Fixture for creating a SpiderWeb instance with a custom max_element_per_level (3).
     """
     return SpiderWeb(max_element_per_level=3)
+
+
+@pytest.fixture(scope="function")
+def spiderweb_with_values() -> SpiderWeb:
+    """
+    Fixture for creating a SpiderWeb instance with values [0, 1, 2, 3, 4, 1, 2, 3].
+    """
+    spiderweb = SpiderWeb(max_element_per_level=3)
+    values = [value for value in [0, 1, 2, 3, 4, 1, 2, 3]]
+    for value in values:
+        spiderweb.add(value)
+    return spiderweb
+
+
+@pytest.fixture(scope="function")
+def spiderweb_with_nodes() -> Tuple[SpiderWeb, List[SpiderWebNode]]:
+    """
+    Fixture for creating a SpiderWeb instance with nodes [0, 1, 2, 3, 4, 1, 2, 3].
+    """
+    spiderweb = SpiderWeb(max_element_per_level=3)
+    nodes = [SpiderWebNode(value) for value in [0, 1, 2, 3, 4, 1, 2, 3]]
+    for node in nodes:
+        spiderweb.add(node)
+    return spiderweb, nodes
 
 
 @pytest.mark.spider_web
@@ -397,3 +422,110 @@ def test_add_last_node_to_non_empty_spiderweb(spiderweb_default_max_element: Spi
      is_equal_to(spiderweb_default_max_element.get_last_node()))
     (assert_that(spiderweb_default_max_element.get_last_node().get_prev_node()).
      is_equal_to(spiderweb_default_max_element.get_first_node()))
+
+
+@pytest.mark.parametrize("value, expected_level, expected_index", [
+    (0, 0, 0),
+    (1, 0, 1),
+    (4, 1, 1)
+])
+@pytest.mark.spider_web
+def test_index_of_element_in_spiderweb(
+        spiderweb_with_values: SpiderWeb,
+        value: int,
+        expected_level: int,
+        expected_index: int
+) -> None:
+    """
+    Parametrized test for the index_of method in SpiderWeb.
+
+    :param value: The element to search for in the SpiderWeb.
+    :param expected_level: The expected level of the found element in the SpiderWeb.
+    :param expected_index: The expected index of the found element in the SpiderWeb.
+    """
+    result = spiderweb_with_values.index_of(value)
+    assert_that(result).is_equal_to({"level": expected_level, "index": expected_index})
+
+
+@pytest.mark.spider_web
+def test_index_of_node_in_spiderweb(spiderweb_with_nodes: Tuple[SpiderWeb, List[SpiderWebNode]]) -> None:
+    """
+    Test the index_of method for finding a node in the SpiderWeb.
+    """
+    spiderweb, nodes = spiderweb_with_nodes
+    result = spiderweb.index_of(node=nodes[1])
+    assert_that(result).is_equal_to({"level": 0, "index": 1})
+
+
+@pytest.mark.spider_web
+def test_index_of_element_not_in_spiderweb(spiderweb_with_values: SpiderWeb) -> None:
+    """
+    Test the index_of method when the element is not present in the SpiderWeb.
+    """
+    result = spiderweb_with_values.index_of(10)
+    assert_that(result).is_equal_to({"level": None, "index": None})
+
+
+@pytest.mark.spider_web
+def test_index_of_node_not_in_spiderweb(spiderweb_with_nodes: Tuple[SpiderWeb, List[SpiderWebNode]]) -> None:
+    """
+    Test the index_of method when the node is not present in the SpiderWeb.
+    """
+    spiderweb, nodes = spiderweb_with_nodes
+    new_node = SpiderWebNode(10)
+    result = spiderweb.index_of(node=new_node)
+    assert_that(result).is_equal_to({"level": None, "index": None})
+
+
+@pytest.mark.parametrize("value, expected_level, expected_index", [
+    (0, 0, 0),
+    (1, 1, 2),
+    (3, 2, 1),
+    (4, 1, 1)
+])
+@pytest.mark.spider_web
+def test_last_index_of_element_in_spiderweb(
+        spiderweb_with_values: SpiderWeb,
+        value: int,
+        expected_level: int,
+        expected_index: int
+) -> None:
+    """
+    Parametrized test for the last_index_of method in SpiderWeb.
+
+    :param value: The element to search for in the SpiderWeb.
+    :param expected_level: The expected level of the last occurrence in the SpiderWeb.
+    :param expected_index: The expected index of the last occurrence in the SpiderWeb.
+    """
+    result = spiderweb_with_values.last_index_of(value)
+    assert_that(result).is_equal_to({"level": expected_level, "index": expected_index})
+
+
+@pytest.mark.spider_web
+def test_last_index_of_node_in_spiderweb(spiderweb_with_nodes: Tuple[SpiderWeb, List[SpiderWebNode]]) -> None:
+    """
+    Test the last_index_of method for finding the last occurrence of a node in the SpiderWeb.
+    """
+    spiderweb, nodes = spiderweb_with_nodes
+    result = spiderweb.last_index_of(node=nodes[1])
+    assert_that(result).is_equal_to({"level": 0, "index": 1})
+
+
+@pytest.mark.spider_web
+def test_last_index_of_element_not_in_spiderweb(spiderweb_with_values: SpiderWeb) -> None:
+    """
+    Test the last_index_of method when the element is not present in the SpiderWeb.
+    """
+    result = spiderweb_with_values.last_index_of(10)
+    assert_that(result).is_equal_to({"level": None, "index": None})
+
+
+@pytest.mark.spider_web
+def test_last_index_of_node_not_in_spiderweb(spiderweb_with_nodes: Tuple[SpiderWeb, List[SpiderWebNode]]) -> None:
+    """
+    Test the last_index_of method when the node is not present in the SpiderWeb.
+    """
+    spiderweb, nodes = spiderweb_with_nodes
+    new_node = SpiderWebNode(10)
+    result = spiderweb.last_index_of(node=new_node)
+    assert_that(result).is_equal_to({"level": None, "index": None})
