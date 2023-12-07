@@ -81,3 +81,30 @@ def test_get_last_node_non_empty_spiderweb(spiderweb_default_max_element: Spider
     result = spiderweb_default_max_element.get_last_node()
     assert_that(result).is_instance_of(SpiderWebNode)
     assert_that(result.get_value()).is_equal_to("last_node_value")
+
+
+@pytest.mark.parametrize(
+    "element_count, expected_level",
+    [
+        (0, -1),
+        (1, 0),
+        (3, 0),
+        (4, 1),
+        (6, 1),
+        (7, 2),
+        (10, 3)
+    ]
+)
+@pytest.mark.spider_web
+def test_get_level(spiderweb_custom_max_element: SpiderWeb, element_count, expected_level) -> None:
+    """
+    Parametrized test for the get_level method in SpiderWeb.
+
+    :param element_count: The number of elements to add to the SpiderWeb.
+    :param expected_level: The expected level for the SpiderWeb.
+    """
+    for i in range(element_count):
+        spiderweb_custom_max_element.add(i)
+
+    result = spiderweb_custom_max_element.get_level()
+    assert_that(result).is_equal_to(expected_level)
