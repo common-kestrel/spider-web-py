@@ -667,3 +667,25 @@ def test_remove_last(
                 spiderweb_custom_max_element.get_last()
         else:
             assert_that(spiderweb_custom_max_element.get_last()).is_equal_to(expected_new_last_value)
+
+
+@pytest.mark.parametrize("initial_elements", [
+    ([1, 2, 3]),
+    ([])
+])
+@pytest.mark.spider_web
+def test_clear_method(spiderweb_default_max_element: SpiderWeb, initial_elements) -> None:
+    """
+    Test the clear method in SpiderWeb.
+
+    :param initial_elements: List of elements to initialize the SpiderWeb.
+    """
+    for element in initial_elements:
+        spiderweb_default_max_element.add(element)
+
+    spiderweb_default_max_element.clear()
+
+    assert_that(spiderweb_default_max_element).is_empty()
+    assert_that(spiderweb_default_max_element.get_first_node()).is_none()
+    assert_that(spiderweb_default_max_element.get_last_node()).is_none()
+    assert_that(spiderweb_default_max_element.get_prev_level()).is_none()
