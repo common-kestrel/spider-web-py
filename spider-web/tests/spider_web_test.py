@@ -557,3 +557,33 @@ def test_get(spiderweb_with_values: SpiderWeb, level: int, index: int, expected_
     else:
         result = spiderweb_with_values.get(level=level, index=index)
         assert_that(result).is_equal_to(expected_value)
+
+
+@pytest.mark.parametrize("level, index, new_value, expected_old_value", [
+    (0, 0, 10, 0),
+    (0, 2, 2, 2),
+    (1, 0, 20, 3),
+    (2, 1, 30, 3),
+    (-1, 0, 10, ValueError),
+    (0, -1, 20, ValueError),
+    (0, 3, 30, ValueError),
+    (2, 2, 40, ValueError)
+])
+@pytest.mark.spider_web
+def test_set(spiderweb_with_values: SpiderWeb, level: int, index: int, new_value: int, expected_old_value: int) -> None:
+    """
+    Test the get method with valid parameters.
+
+    :param spiderweb_with_values: An instance of the SpiderWeb class with pre-set values.
+    :param level: The level at which to set the element.
+    :param index: The index within the specified level to set the element.
+    :param new_value: The new value to be set at the specified level and index.
+    :param expected_old_value: The expected old value at the specified level and index.
+    """
+    if expected_old_value == ValueError:
+        with pytest.raises(ValueError):
+            spiderweb_with_values.set(level=level, index=index, element=new_value)
+    else:
+        result = spiderweb_with_values.set(level=level, index=index, element=new_value)
+        assert_that(result).is_equal_to(expected_old_value)
+        assert_that(spiderweb_with_values.get(level=level, index=index)).is_equal_to(new_value)
