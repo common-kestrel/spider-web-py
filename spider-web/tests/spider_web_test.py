@@ -1,6 +1,6 @@
 import pytest
 from assertpy import assert_that
-from typing import Tuple, List
+from typing import Tuple, List, Any
 from spider_web import SpiderWeb, SpiderWebNode
 
 
@@ -587,3 +587,41 @@ def test_set(spiderweb_with_values: SpiderWeb, level: int, index: int, new_value
         result = spiderweb_with_values.set(level=level, index=index, element=new_value)
         assert_that(result).is_equal_to(expected_old_value)
         assert_that(spiderweb_with_values.get(level=level, index=index)).is_equal_to(new_value)
+
+
+@pytest.mark.parametrize("initial_elements, expected_first_value, expected_size, expected_new_first_value", [
+    ([], IndexError, 0, None),
+    ([1], 1, 0, IndexError),
+    ([1, 2, 3], 1, 2, 2),
+    (["a", "b", 3, 4], "a", 3, "b")
+])
+@pytest.mark.spider_web
+def test_remove_first(
+        spiderweb_custom_max_element: SpiderWeb,
+        initial_elements: list,
+        expected_first_value: Any,
+        expected_size: int,
+        expected_new_first_value: Any
+) -> None:
+    """
+    Test the remove_first method in SpiderWeb.
+
+    :param spiderweb_custom_max_element: An instance of the SpiderWeb class with custom maximum element count.
+    :param initial_elements: List of elements to initialize the SpiderWeb.
+    :param expected_first_value: The expected value of the first element after removal.
+    :param expected_size: The expected size of the SpiderWeb after removal.
+    :param expected_new_first_value: The expected value of the new first element after removal.
+    """
+    for element in initial_elements:
+        spiderweb_custom_max_element.add(element)
+
+    if expected_first_value == IndexError:
+        with pytest.raises(IndexError):
+            spiderweb_custom_max_element.remove_first()
+    else:
+        result = spiderweb_custom_max_element.remove_first()
+        assert_that(result).is_equal_to(expected_first_value)
+        assert_that(spiderweb_custom_max_element.size()).is_equal_to(expected_size)
+        if expected_new_first_value == IndexError:
+            with pytest.raises(IndexError):
+                assert_that(spiderweb_custom_max_element.get_first()).is_equal_to(expected_new_first_value)
