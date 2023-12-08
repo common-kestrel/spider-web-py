@@ -162,15 +162,7 @@ class SpiderWebNode:
             :return: A string representation of the SpiderWebNode.
             :rtype: str
         """
-        return (
-            f"SpiderWebNode("
-            f"value={self._value}, "
-            f"prev_node={self._prev_node}, "
-            f"prev_level_node={self._prev_level_node}, "
-            f"next_node={self._next_node}, "
-            f"next_level_node={self._next_level_node}"
-            f")"
-        )
+        return f"SpiderWebNode(value={self._value})"
 
 
 class SpiderWeb:
