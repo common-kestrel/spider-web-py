@@ -624,4 +624,46 @@ def test_remove_first(
         assert_that(spiderweb_custom_max_element.size()).is_equal_to(expected_size)
         if expected_new_first_value == IndexError:
             with pytest.raises(IndexError):
-                assert_that(spiderweb_custom_max_element.get_first()).is_equal_to(expected_new_first_value)
+                spiderweb_custom_max_element.get_first()
+        else:
+            assert_that(spiderweb_custom_max_element.get_first()).is_equal_to(expected_new_first_value)
+
+
+@pytest.mark.parametrize("initial_elements, expected_last_value, expected_size, expected_new_last_value", [
+    ([], IndexError, 0, None),
+    ([1], 1, 0, IndexError),
+    ([1, 2, 3], 3, 2, 2),
+    (["a", "b", "c", 4], 4, 3, "c")
+])
+@pytest.mark.spider_web
+def test_remove_last(
+        spiderweb_custom_max_element: SpiderWeb,
+        initial_elements: list,
+        expected_last_value: Any,
+        expected_size: int,
+        expected_new_last_value: Any
+) -> None:
+    """
+    Test the remove_first method in SpiderWeb.
+
+    :param spiderweb_custom_max_element: An instance of the SpiderWeb class with custom maximum element count.
+    :param initial_elements: List of elements to initialize the SpiderWeb.
+    :param expected_last_value: The expected value of the last element after removal.
+    :param expected_size: The expected size of the SpiderWeb after removal.
+    :param expected_new_last_value: The expected value of the new last element after removal.
+    """
+    for element in initial_elements:
+        spiderweb_custom_max_element.add(element)
+
+    if expected_last_value == IndexError:
+        with pytest.raises(IndexError):
+            spiderweb_custom_max_element.remove_last()
+    else:
+        result = spiderweb_custom_max_element.remove_last()
+        assert_that(result).is_equal_to(expected_last_value)
+        assert_that(spiderweb_custom_max_element.size()).is_equal_to(expected_size)
+        if expected_new_last_value == IndexError:
+            with pytest.raises(IndexError):
+                spiderweb_custom_max_element.get_last()
+        else:
+            assert_that(spiderweb_custom_max_element.get_last()).is_equal_to(expected_new_last_value)
