@@ -676,6 +676,15 @@ class SpiderWeb:
 
         return new_instance
 
+    def __len__(self) -> int:
+        """
+        Returns the size of the SpiderWebNode.
+
+        :return: The size of the SpiderWebNode.
+        :rtype: int
+        """
+        return self.size()
+
     def __str__(self) -> str:
         """
         Returns a string representation of the SpiderWeb.
