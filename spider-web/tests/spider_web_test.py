@@ -689,3 +689,32 @@ def test_clear_method(spiderweb_default_max_element: SpiderWeb, initial_elements
     assert_that(spiderweb_default_max_element.get_first_node()).is_none()
     assert_that(spiderweb_default_max_element.get_last_node()).is_none()
     assert_that(spiderweb_default_max_element.get_prev_level()).is_none()
+
+
+@pytest.mark.spider_web
+def test_copy_empty_spiderweb(spiderweb_custom_max_element: SpiderWeb) -> None:
+    """
+    Test the copy method on an empty SpiderWeb.
+    """
+    copied_spiderweb = spiderweb_custom_max_element.copy()
+
+    assert_that(copied_spiderweb).is_empty()
+    assert_that(id(spiderweb_custom_max_element)).is_not_equal_to(id(copied_spiderweb))
+
+
+@pytest.mark.spider_web
+def test_copy_non_empty_spiderweb(spiderweb_with_values: SpiderWeb) -> None:
+    """
+    Test the copy method on a non-empty SpiderWeb.
+    """
+    copied_spiderweb = spiderweb_with_values.copy()
+
+    assert_that(copied_spiderweb.size()).is_equal_to(spiderweb_with_values.size())
+    assert_that(id(spiderweb_with_values)).is_not_equal_to(id(copied_spiderweb))
+    while copied_spiderweb.get_first_node() is not None:
+        copied_first_node = copied_spiderweb.get_first_node()
+        spiderweb_first_node = spiderweb_with_values.get_first_node()
+        assert_that(id(spiderweb_first_node)).is_not_equal_to(id(copied_first_node))
+        assert_that(spiderweb_first_node.get_value()).is_equal_to(copied_first_node.get_value())
+        copied_spiderweb.remove_first()
+        spiderweb_with_values.remove_first()
