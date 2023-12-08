@@ -529,3 +529,31 @@ def test_last_index_of_node_not_in_spiderweb(spiderweb_with_nodes: Tuple[SpiderW
     new_node = SpiderWebNode(10)
     result = spiderweb.last_index_of(node=new_node)
     assert_that(result).is_equal_to({"level": None, "index": None})
+
+
+@pytest.mark.parametrize("level, index, expected_value", [
+    (0, 0, 0),
+    (0, 2, 2),
+    (1, 0, 3),
+    (2, 1, 3),
+    (-1, 0, ValueError),
+    (0, -1, ValueError),
+    (0, 3, ValueError),
+    (2, 2, ValueError)
+])
+@pytest.mark.spider_web
+def test_get(spiderweb_with_values: SpiderWeb, level: int, index: int, expected_value: int) -> None:
+    """
+    Test the get method with valid parameters.
+
+    :param spiderweb_with_values: An instance of the SpiderWeb class with pre-set values.
+    :param level: The level of the element to retrieve.
+    :param index: The index within the specified level to retrieve.
+    :param expected_value: The expected value or ValueError if an error is expected.
+    """
+    if expected_value == ValueError:
+        with pytest.raises(ValueError):
+            spiderweb_with_values.get(level=level, index=index)
+    else:
+        result = spiderweb_with_values.get(level=level, index=index)
+        assert_that(result).is_equal_to(expected_value)
