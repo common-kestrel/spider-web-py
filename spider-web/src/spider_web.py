@@ -157,7 +157,7 @@ class SpiderWebNode:
             Example:
                 >>> node = SpiderWebNode(53, None, None)
                 >>> print(node)
-                'SpiderWebNode(value=53, prev_node=None, prev_level_node=None, next_node=None, next_level_node=None)'
+                'SpiderWebNode(value=53)'
 
             :return: A string representation of the SpiderWebNode.
             :rtype: str
@@ -415,7 +415,7 @@ class SpiderWeb:
         current: Optional[SpiderWebNode] = self._first
         self._reset_tmp_variables()
         while current is not None:
-            print(f"value: {current.get_value()}, level: {self._tmp_level}, index: {self._tmp_index}")
+            print(f"level: {self._tmp_level}, index: {self._tmp_index}, value: {current.get_value()}")
             current = current.get_next_node()
             self._next_index()
 
@@ -540,6 +540,34 @@ class SpiderWeb:
         while current is not None:
             if self._tmp_level == level and self._tmp_index == index:
                 return current.get_value()
+
+            self._next_index()
+            current = current.get_next_node()
+
+        raise RuntimeError(f"Failed to get element. Level: {level}, Index: {index}")
+
+    def get_node(self, level: int, index: int) -> Any:
+        """
+        Returns the SpiderWebNode at the specified level and index in the SpiderWeb.
+
+        :param level: The level of the desired SpiderWebNode (non-negative).
+        :type level: int
+        :param index: The index of the desired SpiderWebNode (non-negative).
+        :type index: int
+        :return: The SpiderWebNode at the specified level and index in the SpiderWeb.
+        :rtype: SpiderWebNode
+        :raises ValueError: If the provided level or index is invalid.
+        :raises RuntimeError: If the operation fails to get the element, which should not occur under normal conditions.
+        """
+        if not self._is_valid_level_and_index(level, index):
+            raise ValueError(f"Invalid level or index. Level: {level}, Index: {index}")
+
+        self._reset_tmp_variables()
+        current = self._first
+
+        while current is not None:
+            if self._tmp_level == level and self._tmp_index == index:
+                return current
 
             self._next_index()
             current = current.get_next_node()

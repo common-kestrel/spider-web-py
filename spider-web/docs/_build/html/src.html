@@ -325,6 +325,32 @@ A shallow copy creates a new instance of SpiderWeb and populates it with the val
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="src.spider_web.SpiderWeb.get_node">
+<span class="sig-name descname"><span class="pre">get_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.get_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.get_node" title="Link to this definition"></a></dt>
+<dd><p>Returns the SpiderWebNode at the specified level and index in the SpiderWeb.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<em>int</em>) – The level of the desired SpiderWebNode (non-negative).</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – The index of the desired SpiderWebNode (non-negative).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The SpiderWebNode at the specified level and index in the SpiderWeb.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode">SpiderWebNode</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the provided level or index is invalid.</p></li>
+<li><p><strong>RuntimeError</strong> – If the operation fails to get the element, which should not occur under normal conditions.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="src.spider_web.SpiderWeb.get_prev_level">
 <span class="sig-name descname"><span class="pre">get_prev_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.spider_web.SpiderWebNode" title="src.spider_web.SpiderWebNode"><span class="pre">SpiderWebNode</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/spider_web.html#SpiderWeb.get_prev_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.spider_web.SpiderWeb.get_prev_level" title="Link to this definition"></a></dt>
 <dd><p>Gets the previous level node in the SpiderWeb.</p>

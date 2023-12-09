@@ -227,13 +227,13 @@ def test_print_non_empty_spider_web(capsys, spider_web_custom_max_element: Spide
     spider_web_custom_max_element.print()
     captured = capsys.readouterr()
 
-    expected_output = ("value: 0, level: 0, index: 0\n"
-                       "value: 1, level: 0, index: 1\n"
-                       "value: 2, level: 0, index: 2\n"
-                       "value: 3, level: 1, index: 0\n"
-                       "value: 4, level: 1, index: 1\n"
-                       "value: 5, level: 1, index: 2\n"
-                       "value: 6, level: 2, index: 0\n")
+    expected_output = ("level: 0, index: 0, value: 0\n"
+                       "level: 0, index: 1, value: 1\n"
+                       "level: 0, index: 2, value: 2\n"
+                       "level: 1, index: 0, value: 3\n"
+                       "level: 1, index: 1, value: 4\n"
+                       "level: 1, index: 2, value: 5\n"
+                       "level: 2, index: 0, value: 6\n")
     assert_that(captured.out).is_equal_to(expected_output)
 
 
@@ -557,6 +557,34 @@ def test_get(spider_web_with_values: SpiderWeb, level: int, index: int, expected
     else:
         result = spider_web_with_values.get(level=level, index=index)
         assert_that(result).is_equal_to(expected_value)
+
+
+@pytest.mark.parametrize("level, index, expected_value", [
+    (0, 0, 0),
+    (0, 2, 2),
+    (1, 0, 3),
+    (2, 1, 3),
+    (-1, 0, ValueError),
+    (0, -1, ValueError),
+    (0, 3, ValueError),
+    (2, 2, ValueError)
+])
+@pytest.mark.spider_web
+def test_get_node(spider_web_with_values: SpiderWeb, level: int, index: int, expected_value: int) -> None:
+    """
+        Test the get method with valid parameters.
+
+        :param spider_web_with_values: An instance of the SpiderWeb class with pre-set values.
+        :param level: The level of the SpiderWebNode to retrieve.
+        :param index: The index within the specified level to retrieve.
+        :param expected_value: The expected value or ValueError if an error is expected.
+        """
+    if expected_value == ValueError:
+        with pytest.raises(ValueError):
+            spider_web_with_values.get_node(level=level, index=index)
+    else:
+        result: SpiderWebNode = spider_web_with_values.get_node(level=level, index=index)
+        assert_that(result.get_value()).is_equal_to(expected_value)
 
 
 @pytest.mark.parametrize("level, index, new_value, expected_old_value", [
