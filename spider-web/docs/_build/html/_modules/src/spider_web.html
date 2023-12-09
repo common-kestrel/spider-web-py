@@ -719,7 +719,8 @@
 <span class="sd">        :return: The SpiderWebNode at the specified level and index in the SpiderWeb.</span>
 <span class="sd">        :rtype: SpiderWebNode</span>
 <span class="sd">        :raises ValueError: If the provided level or index is invalid.</span>
-<span class="sd">        :raises RuntimeError: If the operation fails to get the element, which should not occur under normal conditions.</span>
+<span class="sd">        :raises RuntimeError: If the operation fails to get the SpiderWebNode,</span>
+<span class="sd">                                which should not occur under normal conditions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_level_and_index</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid level or index. Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">, Index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
