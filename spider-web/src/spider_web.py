@@ -557,7 +557,8 @@ class SpiderWeb:
         :return: The SpiderWebNode at the specified level and index in the SpiderWeb.
         :rtype: SpiderWebNode
         :raises ValueError: If the provided level or index is invalid.
-        :raises RuntimeError: If the operation fails to get the element, which should not occur under normal conditions.
+        :raises RuntimeError: If the operation fails to get the SpiderWebNode,
+                                which should not occur under normal conditions.
         """
         if not self._is_valid_level_and_index(level, index):
             raise ValueError(f"Invalid level or index. Level: {level}, Index: {index}")
