@@ -266,7 +266,7 @@
 <span class="sd">            Example:</span>
 <span class="sd">                &gt;&gt;&gt; node = SpiderWebNode(53, None, None)</span>
 <span class="sd">                &gt;&gt;&gt; print(node)</span>
-<span class="sd">                &#39;SpiderWebNode(value=53, prev_node=None, prev_level_node=None, next_node=None, next_level_node=None)&#39;</span>
+<span class="sd">                &#39;SpiderWebNode(value=53)&#39;</span>
 
 <span class="sd">            :return: A string representation of the SpiderWebNode.</span>
 <span class="sd">            :rtype: str</span>
@@ -556,7 +556,7 @@
         <span class="n">current</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SpiderWebNode</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reset_tmp_variables</span><span class="p">()</span>
         <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;value: </span><span class="si">{</span><span class="n">current</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="si">}</span><span class="s2">, level: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span><span class="si">}</span><span class="s2">, index: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;level: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span><span class="si">}</span><span class="s2">, index: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span><span class="si">}</span><span class="s2">, value: </span><span class="si">{</span><span class="n">current</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_next_node</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_next_index</span><span class="p">()</span></div>
 
@@ -699,6 +699,37 @@
         <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span> <span class="o">==</span> <span class="n">level</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span> <span class="o">==</span> <span class="n">index</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">current</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_next_index</span><span class="p">()</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_next_node</span><span class="p">()</span>
+
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get element. Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">, Index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpiderWeb.get_node">
+<a class="viewcode-back" href="../../src.html#src.spider_web.SpiderWeb.get_node">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the SpiderWebNode at the specified level and index in the SpiderWeb.</span>
+
+<span class="sd">        :param level: The level of the desired SpiderWebNode (non-negative).</span>
+<span class="sd">        :type level: int</span>
+<span class="sd">        :param index: The index of the desired SpiderWebNode (non-negative).</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :return: The SpiderWebNode at the specified level and index in the SpiderWeb.</span>
+<span class="sd">        :rtype: SpiderWebNode</span>
+<span class="sd">        :raises ValueError: If the provided level or index is invalid.</span>
+<span class="sd">        :raises RuntimeError: If the operation fails to get the element, which should not occur under normal conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_level_and_index</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid level or index. Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">, Index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_tmp_variables</span><span class="p">()</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first</span>
+
+        <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_level</span> <span class="o">==</span> <span class="n">level</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tmp_index</span> <span class="o">==</span> <span class="n">index</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">current</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_next_index</span><span class="p">()</span>
             <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_next_node</span><span class="p">()</span>
